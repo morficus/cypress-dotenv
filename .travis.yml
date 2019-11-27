@@ -1,0 +1,28 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=e3094b07fee502ddf998b694d792f2660be08f72e9fbe24316b6b2dd0cc5c383
+
+os:
+  - windows
+  - linux
+  - osx
+
+language: node_js
+
+node_js:
+  - "node"
+  - "lts/*"
+  - "12"
+  - "10"
+  - "8"
+
+
+before_install:
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter  ; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-darwin-amd64 > ./cc-test-reporter   ; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" || "$TRAVIS_OS_NAME" = "linux" ]; then chmod +x ./cc-test-reporter     ; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" || "$TRAVIS_OS_NAME" = "linux" ]; then ./cc-test-reporter before-build ; fi
+
+# Pipe the coverage data to Code Climate
+after_script:
+  - if [ "$TRAVIS_OS_NAME" = "osx" || "$TRAVIS_OS_NAME" = "linux" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT  ; fi
