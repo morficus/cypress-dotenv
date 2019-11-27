@@ -1,0 +1,28 @@
+{
+  "name": "cypress-dotenv",
+  "version": "1.0.0",
+  "description": "Cypress plugin that enables compatability with dotenv",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "engines": {
+    "node": ">=8.x"
+  },
+  "keywords": [
+    "cypress",
+    "plugin",
+    "dotenv",
+    "cypress-plugin"
+  ],
+  "author": "Maurice Williams",
+  "license": "MIT",
+  "peerDependencies": {
+    "cypress": "3.x",
+    "dotenv": "8.x"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "jest": "^24.9.0"
+  }
+}
