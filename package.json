@@ -4,7 +4,7 @@
   "description": "Cypress plugin that enables compatability with dotenv",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "jest"
   },
   "engines": {
     "node": ">=8.x"
