@@ -1,11 +1,11 @@
 const plugin = require('./index')
 
 describe('Cypress dotenv plugin', () => {
-  const OLD_ENV = process.env;
+  const OLD_ENV = process.env
 
   beforeEach(() => {
     process.env = { ...OLD_ENV }
-  });
+  })
 
   it('Should load the content of the .env file', () => {
     plugin({})
