@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "pretty": "prettier *.js --write"
+    "pretty": "prettier *.js --write",
+    "prepublishOnly": "npm test"
   },
+  "repository": "https://github.com/morficus/cypress-dotenv.git",
+  "homepage": "https://github.com/morficus/cypress-dotenv",
   "engines": {
     "node": ">=8.x"
   },
@@ -14,9 +17,10 @@
     "cypress",
     "plugin",
     "dotenv",
-    "cypress-plugin"
+    "cypress-plugin",
+    "env"
   ],
-  "author": "Maurice Williams",
+  "author": "Maurice Williams <https://github.com/morficus>",
   "license": "MIT",
   "peerDependencies": {
     "cypress": "3.x",
