@@ -25,4 +25,4 @@ before_install:
 
 # Pipe the coverage data to Code Climate
 after_script:
-  - if [ "$TRAVIS_OS_NAME" = "osx" || "$TRAVIS_OS_NAME" = "linux" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT  ; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" || "$TRAVIS_OS_NAME" = "linux" ]; then ./cc-test-reporter after-build -t lcov --exit-code $TRAVIS_TEST_RESULT  ; fi
