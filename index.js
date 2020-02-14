@@ -1,5 +1,5 @@
 const camelcase = require('camelcase')
-const clonedeep = require('clonedeep')
+const clonedeep = require('lodash.clonedeep')
 
 /**
  * Cypress dotenv plugin
@@ -9,25 +9,26 @@ const clonedeep = require('clonedeep')
  * @returns {object} The cypress config with an augmented `env` property
  */
 module.exports = (cypressConfig, dotEnvConfig) => {
-  require('dotenv').config(dotEnvConfig)
+  // load the content of the .env file, then parse each variable to the correct type (string, number, boolean, etc.)
+  let envVars = require('dotenv').config(dotEnvConfig)
+  const dotenvParseVariables = require('dotenv-parse-variables')
+  envVars = dotenvParseVariables(envVars.parsed)
 
   let enhancedConfig = clonedeep(cypressConfig)
   enhancedConfig.env = enhancedConfig.env || {}
 
   // get the name of all env vars that relate to cypress
-  const cypressEnvVarKeys = Object.keys(process.env).filter(envName => envName.startsWith('CYPRESS_'))
-
-  // this will hold env vars whos name/key has been turned in to cameCase (this is to deal with Cypress config env vars)
-  // const camelCaseEnvVars = {}
-  // and this will just hold the env var with the unaltered name
-  // const originalCaseEnvVars = {}
+  const cypressEnvVarKeys = Object.keys(envVars).filter(envName => envName.startsWith('CYPRESS_'))
 
   cypressEnvVarKeys.forEach(originalName => {
     const cleanName = originalName.replace('CYPRESS_', '')
     const camelCaseName = camelcase(cleanName)
-    enhancedConfig.env[cleanName] = process.env[originalName]
-    if (enhancedConfig.hasOwnProperty(camelCaseName)) {
-      enhancedConfig[camelCaseName] = process.env[originalName]
+    enhancedConfig.env[cleanName] = envVars[originalName]
+
+    // only overwrite Cypress config options that are infact valid options,
+    // but ignore the `env` property... otherwise we will be in a world of pain
+    if (enhancedConfig.hasOwnProperty(camelCaseName) && camelCaseName !== 'env') {
+      enhancedConfig[camelCaseName] = envVars[originalName]
     }
   })
 

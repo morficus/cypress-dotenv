@@ -1,6 +1,7 @@
 const plugin = require('./index')
 const cypressConfigExample = {
   baseUrl: 'http://example.com',
+  env: {},
   viewportWidth: 800,
   viewportHeight: 600
 }
@@ -51,14 +52,24 @@ describe('Cypress dotenv plugin', () => {
     expect(enhancedConfig.env.SOME_OTHER_ENV_VAR).toEqual('hey there')
   })
 
-  it('Should update any standard Cypress config keys', () => {
+  it('Should update any standard Cypress config keys, even if the .env key is in SNAKE_CASE', () => {
     const enhancedConfig = plugin(cypressConfigExample)
 
     expect(enhancedConfig.baseUrl).toEqual('http://google.com')
   })
 
-  it('Should update any standard Cypress config keys, even if the .env key is in SNAKE_CASE', () => {
+  it('Should parse things that are numbers, as numbers', () => {
     const enhancedConfig = plugin(cypressConfigExample)
-    expect(enhancedConfig.viewportWidth).toEqual('100')
+    expect(enhancedConfig.env.I_AM_NUMBER).toEqual(100)
+  })
+
+  it('Should parse things that are booleans, as booleans', () => {
+    const enhancedConfig = plugin(cypressConfigExample)
+    expect(enhancedConfig.env.I_AM_BOOLEAN).toEqual(true)
+  })
+
+  it('Should yeiled config.env as an object, even if there is a CYPRESS_ENV present', () => {
+    const enhancedConfig = plugin(cypressConfigExample)
+    expect(typeof enhancedConfig.env).toEqual('object')
   })
 })
