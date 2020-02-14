@@ -1,3 +1,6 @@
+const camelcase = require('camelcase')
+const clonedeep = require('clonedeep')
+
 /**
  * Cypress dotenv plugin
  *
@@ -8,17 +11,25 @@
 module.exports = (cypressConfig, dotEnvConfig) => {
   require('dotenv').config(dotEnvConfig)
 
+  let enhancedConfig = clonedeep(cypressConfig)
+  enhancedConfig.env = enhancedConfig.env || {}
+
   // get the name of all env vars that relate to cypress
-  const cypressEnvVars = Object.keys(process.env).filter(envName => envName.startsWith('CYPRESS_'))
+  const cypressEnvVarKeys = Object.keys(process.env).filter(envName => envName.startsWith('CYPRESS_'))
 
-  // create a new object with cypress-specific env vars, where the keys have the "CYPRESS_" prefix removed
-  const newEnvVars = cypressEnvVars.reduce((acc, originalName) => {
+  // this will hold env vars whos name/key has been turned in to cameCase (this is to deal with Cypress config env vars)
+  // const camelCaseEnvVars = {}
+  // and this will just hold the env var with the unaltered name
+  // const originalCaseEnvVars = {}
+
+  cypressEnvVarKeys.forEach(originalName => {
     const cleanName = originalName.replace('CYPRESS_', '')
-    acc[cleanName] = process.env[originalName]
-    return acc
-  }, {})
+    const camelCaseName = camelcase(cleanName)
+    enhancedConfig.env[cleanName] = process.env[originalName]
+    if (enhancedConfig.hasOwnProperty(camelCaseName)) {
+      enhancedConfig[camelCaseName] = process.env[originalName]
+    }
+  })
 
-  cypressConfig.env = { ...cypressConfig.env, ...newEnvVars }
-
-  return cypressConfig
+  return enhancedConfig
 }

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Cypress plugin that enables compatability with dotenv",
   "main": "index.js",
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "test": "jest",
     "pretty": "prettier *.js --write",
@@ -30,5 +33,9 @@
     "dotenv": "^8.2.0",
     "jest": "^24.9.0",
     "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "camelcase": "^5.3.1",
+    "clonedeep": "^2.0.0"
   }
 }

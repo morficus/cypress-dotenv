@@ -9,6 +9,8 @@ Cypress plugin that enables compatability with [dotenv](https://www.npmjs.com/pa
 ## What does this thing do?
 It will load any [`CYPRESS_*` environment variables](https://docs.cypress.io/guides/guides/environment-variables.html#Option-2-cypress-env-json) defined in your `.env` file so you can access them via `Cypress.env()` from within your tests as you would expect.  
 
+Any [Cypress config options](https://docs.cypress.io/guides/references/configuration.html) definedin your .env will also be applied and take precesende over what is in your `cypress.json` file. See the [Cypress docs for detials on this](https://docs.cypress.io/guides/references/configuration.html#Environment-Variables)
+
 For example.. if your `.env` file has something like this:
 ```text
 CYPRESS_HELLO=hola

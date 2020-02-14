@@ -1,4 +1,9 @@
 const plugin = require('./index')
+const cypressConfigExample = {
+  baseUrl: 'http://example.com',
+  viewportWidth: 800,
+  viewportHeight: 600
+}
 
 describe('Cypress dotenv plugin', () => {
   const OLD_ENV = process.env
@@ -8,7 +13,7 @@ describe('Cypress dotenv plugin', () => {
   })
 
   it('Should load the content of the .env file', () => {
-    plugin({})
+    plugin(cypressConfigExample)
     expect(process.env.CYPRESS_TEST_VAR).toBeDefined()
     expect(process.env.CYPRESS_TEST_VAR).toEqual('hello')
 
@@ -17,16 +22,14 @@ describe('Cypress dotenv plugin', () => {
   })
 
   it('Should do nothing if no CYPRESS_ env vars are present', () => {
-    const cypessConfig = {}
     const dotenvConfig = { path: './.env.no-cypress' }
-    const enhancedConfig = plugin(cypessConfig, dotenvConfig)
+    const enhancedConfig = plugin(cypressConfigExample, dotenvConfig)
 
     expect(enhancedConfig.env).toEqual({})
   })
 
   it('Should only add CYRESS_ vars to the config', () => {
-    const config = {}
-    const enhancedConfig = plugin(config)
+    const enhancedConfig = plugin(cypressConfigExample)
 
     expect(enhancedConfig.env.TEST_VAR).toBeDefined()
     expect(enhancedConfig.env.TEST_VAR).toEqual('hello')
@@ -34,6 +37,7 @@ describe('Cypress dotenv plugin', () => {
 
   it('Should not alter any existing env vars that do not conflict', () => {
     const config = {
+      ...cypressConfigExample,
       env: {
         SOME_OTHER_ENV_VAR: 'hey there'
       }
@@ -45,5 +49,16 @@ describe('Cypress dotenv plugin', () => {
 
     expect(enhancedConfig.env.SOME_OTHER_ENV_VAR).toBeDefined()
     expect(enhancedConfig.env.SOME_OTHER_ENV_VAR).toEqual('hey there')
+  })
+
+  it('Should update any standard Cypress config keys', () => {
+    const enhancedConfig = plugin(cypressConfigExample)
+
+    expect(enhancedConfig.baseUrl).toEqual('http://google.com')
+  })
+
+  it('Should update any standard Cypress config keys, even if the .env key is in SNAKE_CASE', () => {
+    const enhancedConfig = plugin(cypressConfigExample)
+    expect(enhancedConfig.viewportWidth).toEqual('100')
   })
 })
