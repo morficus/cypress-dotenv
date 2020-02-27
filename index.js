@@ -12,7 +12,7 @@ module.exports = (cypressConfig, dotEnvConfig) => {
   // load the content of the .env file, then parse each variable to the correct type (string, number, boolean, etc.)
   let envVars = require('dotenv').config(dotEnvConfig)
   const dotenvParseVariables = require('dotenv-parse-variables')
-  envVars = dotenvParseVariables(envVars.parsed)
+  envVars = dotenvParseVariables(envVars.parsed || {})
 
   let enhancedConfig = clonedeep(cypressConfig)
   enhancedConfig.env = enhancedConfig.env || {}
