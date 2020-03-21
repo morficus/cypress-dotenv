@@ -6,7 +6,7 @@ const clonedeep = require('lodash.clonedeep')
  *
  * @param {object} cypressConfig - The cypress config object
  * @param {object} dotEnvConfig - (optional) The dotenv config object, ref: https://www.npmjs.com/package/dotenv#config
- * @param {string} all - (optional) Whether to return all env variables. If set to false (default), only env variables prefixed with CYPRESS_ are returned.
+ * @param {boolean} all - (optional) Whether to return all env variables. If set to false (default), only env variables prefixed with CYPRESS_ are returned.
  * @returns {object} The cypress config with an augmented `env` property
  */
 module.exports = (cypressConfig, dotEnvConfig, all = false) => {
@@ -20,7 +20,7 @@ module.exports = (cypressConfig, dotEnvConfig, all = false) => {
 
   // get the name of all env vars that relate to cypress
   const cypressEnvVarKeys = all
-    ? Object.keys(envVars).filter(envName => envName)
+    ? Object.keys(envVars)
     : Object.keys(envVars).filter(envName => envName.startsWith('CYPRESS_'))
 
   cypressEnvVarKeys.forEach(originalName => {

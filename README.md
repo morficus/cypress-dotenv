@@ -46,4 +46,4 @@ This plugin takes three paramaters. The first parameter (which is mandatory) is 
 
 The second is an optional [dotenv](https://www.npmjs.com/package/dotenv#config) config object.
 
-The third is an optional [all] parameter, which is set to false by default. If set to true, it returns all available environmental variables, not limited to those prefixed with CYPRESS_.
+The third is an optional [all] boolean parameter, which is set to false by default. If set to true, it returns all available environmental variables, not limited to those prefixed with CYPRESS_.
