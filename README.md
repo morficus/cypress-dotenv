@@ -7,7 +7,7 @@ Cypress plugin that enables compatability with [dotenv](https://www.npmjs.com/pa
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0d189dae8e924ada81ad/test_coverage)](https://codeclimate.com/github/morficus/cypress-dotenv/test_coverage)
 
 ## What does this thing do?
-It will load any [`CYPRESS_*` environment variables](https://docs.cypress.io/guides/guides/environment-variables.html#Option-2-cypress-env-json) defined in your `.env` file so you can access them via `Cypress.env()` from within your tests as you would expect.  
+It will load any [`environment variables](https://docs.cypress.io/guides/guides/environment-variables.html#Option-2-cypress-env-json) defined in your `.env` file so you can access them via `Cypress.env()` from within your tests as you would expect.  
 
 Any [Cypress config options](https://docs.cypress.io/guides/references/configuration.html) definedin your .env will also be applied and take precedence over what is in your `cypress.json` file. See the [Cypress docs for details on this](https://docs.cypress.io/guides/references/configuration.html#Environment-Variables)
 
@@ -42,4 +42,8 @@ module.exports = (on, config) => {
 ```
 
 ## Options
-This plugin takes two paramaters. The first parameter (which is mandatory) is the Cypress config object and the other is an optional [dotenv](https://www.npmjs.com/package/dotenv#config) config object.
+This plugin takes three paramaters. The first parameter (which is mandatory) is the Cypress config object. 
+
+The second is an optional [dotenv](https://www.npmjs.com/package/dotenv#config) config object.
+
+The third is an optional [all] boolean parameter, which is set to false by default. If set to true, it returns all available environmental variables, not limited to those prefixed with CYPRESS_.

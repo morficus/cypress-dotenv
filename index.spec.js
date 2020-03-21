@@ -72,4 +72,20 @@ describe('Cypress dotenv plugin', () => {
     const enhancedConfig = plugin(cypressConfigExample)
     expect(typeof enhancedConfig.env).toEqual('object')
   })
+
+  describe('Optional all argument', () => {
+    it('Should return all available env vars', () => {
+      const dotenvConfig = { path: './.env' }
+      const enhancedConfig = plugin(cypressConfigExample, dotenvConfig, true)
+
+      expect(enhancedConfig.env).toEqual({
+        BASE_URL: 'http://google.com',
+        ENV: 'testing',
+        I_AM_BOOLEAN: true,
+        I_AM_NUMBER: 100,
+        NON_TEST_VAR: 'goodbye',
+        TEST_VAR: 'hello'
+      })
+    })
+  })
 })
