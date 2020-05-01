@@ -7,18 +7,18 @@ Cypress plugin that enables compatability with [dotenv](https://www.npmjs.com/pa
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0d189dae8e924ada81ad/test_coverage)](https://codeclimate.com/github/morficus/cypress-dotenv/test_coverage)
 
 ## What does this thing do?
-It will load any [`environment variables](https://docs.cypress.io/guides/guides/environment-variables.html#Option-2-cypress-env-json) defined in your `.env` file so you can access them via `Cypress.env()` from within your tests as you would expect.  
+It will load any [`environment variables`](https://docs.cypress.io/guides/guides/environment-variables.html#Option-2-cypress-env-json) defined in your `.env` file so you can access them via `Cypress.env()` from within your tests as you would expect.
 
 Any [Cypress config options](https://docs.cypress.io/guides/references/configuration.html) definedin your .env will also be applied and take precedence over what is in your `cypress.json` file. See the [Cypress docs for details on this](https://docs.cypress.io/guides/references/configuration.html#Environment-Variables)
 
-For example.. if your `.env` file has something like this:
+For example, if your `.env` file has something like this:
+
 ```text
 CYPRESS_HELLO=hola
 GOODBYE=adios
 ```
 
 You can use `Cypress.env('HELLO`) to access its value.
-
 
 ## Install
 ```bash
@@ -31,7 +31,7 @@ yarn add --dev cypress-dotenv
 
 ## Configure
 
-Since this is a plugin, you will need to modify your file cypress/plugins/index.js to look something like this:
+Since this is a plugin, you will need to modify your file `cypress/plugins/index.js` to look something like this:
 
 ```javascript
 const dotenvPlugin = require('cypress-dotenv');
