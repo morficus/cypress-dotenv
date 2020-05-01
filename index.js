@@ -1,5 +1,6 @@
 const camelcase = require('camelcase')
 const clonedeep = require('lodash.clonedeep')
+const pkgName = '[cypress-dotenv]'
 
 /**
  * Cypress dotenv plugin
@@ -10,12 +11,23 @@ const clonedeep = require('lodash.clonedeep')
  * @returns {object} The cypress config with an augmented `env` property
  */
 module.exports = (cypressConfig, dotEnvConfig, all = false) => {
+  if (!cypressConfig) {
+    console.warn(`${pkgName} did not receive a Cypress config object, so no environment variables will be applied`)
+    return {}
+  }
+
   // load the content of the .env file, then parse each variable to the correct type (string, number, boolean, etc.)
   let envVars = require('dotenv').config(dotEnvConfig)
-  const dotenvParseVariables = require('dotenv-parse-variables')
-  envVars = dotenvParseVariables(envVars.parsed || {})
 
-  let enhancedConfig = clonedeep(cypressConfig)
+  // if no env vars were parsed, then there is nothing to do here (most likely an empty or non-existing .env file)
+  if (envVars.parsed === undefined) {
+    return cypressConfig
+  }
+
+  const dotenvParseVariables = require('dotenv-parse-variables')
+  envVars = dotenvParseVariables(envVars.parsed)
+
+  const enhancedConfig = clonedeep(cypressConfig)
   enhancedConfig.env = enhancedConfig.env || {}
 
   // get the name of all env vars that relate to cypress

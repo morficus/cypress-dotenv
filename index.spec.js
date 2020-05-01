@@ -29,7 +29,7 @@ describe('Cypress dotenv plugin', () => {
     expect(enhancedConfig.env).toEqual({})
   })
 
-  it('Should only add CYRESS_ vars to the config', () => {
+  it('Should only add CYPRESS_ vars to the config', () => {
     const enhancedConfig = plugin(cypressConfigExample)
 
     expect(enhancedConfig.env.TEST_VAR).toBeDefined()
@@ -68,9 +68,39 @@ describe('Cypress dotenv plugin', () => {
     expect(enhancedConfig.env.I_AM_BOOLEAN).toEqual(true)
   })
 
-  it('Should yeiled config.env as an object, even if there is a CYPRESS_ENV present', () => {
+  it('Should yield config.env as an object, even if there is a CYPRESS_ENV present', () => {
     const enhancedConfig = plugin(cypressConfigExample)
     expect(typeof enhancedConfig.env).toEqual('object')
+  })
+
+  it('Should not error out if there is no .env file present', () => {
+    const dotenvConfig = { path: './non-existent-file' }
+    const enhancedConfig = plugin(cypressConfigExample, dotenvConfig)
+
+    expect(enhancedConfig.env).toEqual({})
+    expect(enhancedConfig).toEqual(cypressConfigExample)
+  })
+
+  it('Should not error out if an empty Cypress config object is passed in', () => {
+    const expectedOutput = {
+      BASE_URL: 'http://google.com',
+      ENV: 'testing',
+      I_AM_BOOLEAN: true,
+      I_AM_NUMBER: 100,
+      TEST_VAR: 'hello'
+    }
+    const enhancedConfig = plugin({})
+
+    expect(enhancedConfig.env).toEqual(expectedOutput)
+    expect(enhancedConfig).toEqual({ env: expectedOutput })
+  })
+
+  it('Should not error out if an "undefined" Cypress config object is passed in', () => {
+    global.console = {warn: jest.fn()}
+    enhancedConfig = plugin(undefined)
+
+    expect(enhancedConfig).toEqual({})
+    expect(console.warn).toHaveBeenCalledTimes(1)
   })
 
   describe('Optional all argument', () => {
