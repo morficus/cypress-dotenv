@@ -113,7 +113,7 @@ describe('Cypress dotenv plugin', () => {
         ENV: 'testing',
         I_AM_BOOLEAN: true,
         I_AM_NUMBER: 100,
-        NON_TEST_VAR: 'goodbye',
+        NON_CYPRESS_TEST_VAR: 'goodbye',
         TEST_VAR: 'hello'
       })
     })

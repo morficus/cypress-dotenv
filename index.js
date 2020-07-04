@@ -16,6 +16,8 @@ module.exports = (cypressConfig, dotEnvConfig, all = false) => {
     return {}
   }
 
+  const cypressPrefix = 'CYPRESS_'
+
   // load the content of the .env file, then parse each variable to the correct type (string, number, boolean, etc.)
   let envVars = require('dotenv').config(dotEnvConfig)
 
@@ -33,10 +35,11 @@ module.exports = (cypressConfig, dotEnvConfig, all = false) => {
   // get the name of all env vars that relate to cypress
   const cypressEnvVarKeys = all
     ? Object.keys(envVars)
-    : Object.keys(envVars).filter(envName => envName.startsWith('CYPRESS_'))
+    : Object.keys(envVars).filter(envName => envName.startsWith(cypressPrefix))
 
   cypressEnvVarKeys.forEach(originalName => {
-    const cleanName = originalName.replace('CYPRESS_', '')
+    const pattern = new RegExp(`^${cypressPrefix}`, 'g')
+    const cleanName = originalName.replace(pattern, '')
     const camelCaseName = camelcase(cleanName)
     enhancedConfig.env[cleanName] = envVars[originalName]
 
