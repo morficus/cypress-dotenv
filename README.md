@@ -18,15 +18,16 @@ CYPRESS_HELLO=hola
 GOODBYE=adios
 ```
 
-You can use `Cypress.env('HELLO`) to access its value.
+You can use `Cypress.env('HELLO')` to access its value.
 
 ## Install
+You will also need to install the original `dotenv` package along with `cypress-dotenv`
 ```bash
-npm install --save-dev cypress-dotenv
+npm install --save-dev dotenv cypress-dotenv 
 ```
 or
 ```
-yarn add --dev cypress-dotenv
+yarn add --dev dotenv cypress-dotenv
 ```
 
 ## Configure
