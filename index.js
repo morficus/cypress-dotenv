@@ -19,7 +19,7 @@ module.exports = (cypressConfig, dotEnvConfig, all = false) => {
   const cypressPrefix = 'CYPRESS_'
 
   // load the content of the .env file, then parse each variable to the correct type (string, number, boolean, etc.)
-  let envVars = require('dotenv').config(dotEnvConfig)
+  let envVars = require('dotenv-flow').config(dotEnvConfig)
 
   // if no env vars were parsed, then there is nothing to do here (most likely an empty or non-existing .env file)
   if (envVars.parsed === undefined) {

@@ -105,7 +105,7 @@ describe('Cypress dotenv plugin', () => {
 
   describe('Optional all argument', () => {
     it('Should return all available env vars', () => {
-      const dotenvConfig = { path: './.env' }
+      const dotenvConfig = { path: '.' }
       const enhancedConfig = plugin(cypressConfigExample, dotenvConfig, true)
 
       expect(enhancedConfig.env).toEqual({
@@ -115,6 +115,21 @@ describe('Cypress dotenv plugin', () => {
         I_AM_NUMBER: 100,
         NON_CYPRESS_TEST_VAR: 'goodbye',
         TEST_VAR: 'hello'
+      })
+    })
+  })
+
+  describe('dotenv-flow', () => {
+    it('Should override .env variables with .env.production if env is prod', () => {
+      const dotenvConfig = { node_env: 'production' }
+      const enhancedConfig = plugin(cypressConfigExample, dotenvConfig)
+
+      expect(enhancedConfig.env).toEqual({
+        BASE_URL: 'http://google.com',
+        ENV: 'testing',
+        I_AM_BOOLEAN: true,
+        I_AM_NUMBER: 100,
+        TEST_VAR: 'hello_from_prod'
       })
     })
   })
