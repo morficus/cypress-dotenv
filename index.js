@@ -41,10 +41,14 @@ module.exports = (cypressConfig, dotEnvConfig, all = false) => {
     const pattern = new RegExp(`^${cypressPrefix}`, 'g')
     const cleanName = originalName.replace(pattern, '')
     const camelCaseName = camelcase(cleanName)
-    enhancedConfig.env[cleanName] = envVars[originalName]
+    const parsedEnvar = envVars[originalName]
+    const processEnvVar =  process.env[originalName]
+    const envVar = typeof parsedEnvar === 'string' ? processEnvVar : parsedEnvar
+    
+    enhancedConfig.env[cleanName] = envVar
 
     if (enhancedConfig.hasOwnProperty(camelCaseName) && camelCaseName !== 'env') {
-      enhancedConfig[camelCaseName] = envVars[originalName]
+      enhancedConfig[camelCaseName] = envVar
     }
   })
 
