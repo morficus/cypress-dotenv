@@ -52,6 +52,15 @@ describe('Cypress dotenv plugin', () => {
     expect(enhancedConfig.env.SOME_OTHER_ENV_VAR).toEqual('hey there')
   })
 
+  it('Should not alter existing CYPRESS_ environment variables', () => {
+    process.env['CYPRESS_TEST_VAR'] = 'existing';
+
+    plugin(cypressConfigExample)
+    expect(process.env.CYPRESS_TEST_VAR).toBeDefined()
+    expect(process.env.CYPRESS_TEST_VAR).not.toEqual('hello')
+    expect(process.env.CYPRESS_TEST_VAR).toEqual('existing')
+  })
+
   it('Should update any standard Cypress config keys, even if the .env key is in SNAKE_CASE', () => {
     const enhancedConfig = plugin(cypressConfigExample)
 
