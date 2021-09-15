@@ -6,6 +6,9 @@ Cypress plugin that enables compatability with [dotenv](https://www.npmjs.com/pa
 [![Maintainability](https://api.codeclimate.com/v1/badges/0d189dae8e924ada81ad/maintainability)](https://codeclimate.com/github/morficus/cypress-dotenv/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0d189dae8e924ada81ad/test_coverage)](https://codeclimate.com/github/morficus/cypress-dotenv/test_coverage)
 
+Please note that as of v2.0 this plugin only support Node v10+, Cypress 8+ and dotenv 10+  
+If you are still using older versions, then please install v1.x instead 
+
 ## What does this thing do?
 It will load any [`environment variables`](https://docs.cypress.io/guides/guides/environment-variables.html#Option-2-cypress-env-json) defined in your `.env` file so you can access them via `Cypress.env()` from within your tests as you would expect.
 

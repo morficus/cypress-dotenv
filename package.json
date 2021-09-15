@@ -30,8 +30,8 @@
   "author": "Maurice Williams <https://github.com/morficus>",
   "license": "MIT",
   "peerDependencies": {
-    "cypress": ">= 3.x",
-    "dotenv": ">= 8.x"
+    "cypress": ">= 8.x",
+    "dotenv": ">= 10.x"
   },
   "devDependencies": {
     "cypress": "^8.4.0",
