@@ -20,6 +20,6 @@ const dotenvPlugin = require('../../index')
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-  config = dotenvPlugin(config, null, true)
+  config = dotenvPlugin(config, undefined, true)
   return config
 }
