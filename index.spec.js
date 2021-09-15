@@ -53,7 +53,7 @@ describe('Cypress dotenv plugin', () => {
   })
 
   it('Should not alter existing CYPRESS_ environment variables', () => {
-    process.env['CYPRESS_TEST_VAR'] = 'existing';
+    process.env['CYPRESS_TEST_VAR'] = 'existing'
 
     plugin(cypressConfigExample)
     expect(process.env.CYPRESS_TEST_VAR).toBeDefined()
@@ -105,7 +105,7 @@ describe('Cypress dotenv plugin', () => {
   })
 
   it('Should not error out if an "undefined" Cypress config object is passed in', () => {
-    global.console = {warn: jest.fn()}
+    global.console = { warn: jest.fn() }
     enhancedConfig = plugin(undefined)
 
     expect(enhancedConfig).toEqual({})

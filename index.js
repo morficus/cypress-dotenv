@@ -35,16 +35,16 @@ module.exports = (cypressConfig, dotEnvConfig, all = false) => {
   // get the name of all env vars that relate to cypress
   const cypressEnvVarKeys = all
     ? Object.keys(envVars)
-    : Object.keys(envVars).filter(envName => envName.startsWith(cypressPrefix))
+    : Object.keys(envVars).filter((envName) => envName.startsWith(cypressPrefix))
 
-  cypressEnvVarKeys.forEach(originalName => {
+  cypressEnvVarKeys.forEach((originalName) => {
     const pattern = new RegExp(`^${cypressPrefix}`, 'g')
     const cleanName = originalName.replace(pattern, '')
     const camelCaseName = camelcase(cleanName)
     const parsedEnvar = envVars[originalName]
-    const processEnvVar =  process.env[originalName]
+    const processEnvVar = process.env[originalName]
     const envVar = typeof parsedEnvar === 'string' ? processEnvVar : parsedEnvar
-    
+
     enhancedConfig.env[cleanName] = envVar
 
     if (enhancedConfig.hasOwnProperty(camelCaseName) && camelCaseName !== 'env') {
