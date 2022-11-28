@@ -35,6 +35,8 @@ yarn add --dev dotenv cypress-dotenv
 
 ## Configure
 
+Cypress (< 10.0.0)
+
 Since this is a plugin, you will need to modify your file `cypress/plugins/index.js` to look something like this:
 
 ```javascript
@@ -43,6 +45,26 @@ module.exports = (on, config) => {
   config = dotenvPlugin(config)
   return config
 }
+```
+
+Cypress (>= 10.0.0)
+
+According to [Migration Guide](https://docs.cypress.io/guides/references/migration-guide#Plugins-File-Removed):
+The setupNodeEvents() config option is functionally equivalent to the function exported from the plugins file
+
+```javascript
+import { defineConfig } from 'cypress'
+import dotenvPlugin from 'cypress-dotenv'
+
+export default defineConfig({
+	e2e: {
+                ...
+		setupNodeEvents(on, config) {
+			return dotenvPlugin(config)
+		},
+	},
+	...
+})
 ```
 
 ## Options
