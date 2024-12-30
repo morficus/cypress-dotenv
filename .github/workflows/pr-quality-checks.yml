@@ -1,6 +1,9 @@
 # Run a number of quality checks ever time a PR is opened
 name: Pull Request Quality Checks
 
+permissions:
+  contents: read
+  pull-requests: read
 on:
   workflow_dispatch:
     inputs:
