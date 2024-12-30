@@ -15,7 +15,7 @@ function checkIfTrulyNumber({ parsedValue, rawValue }) {
     correctValue = rawValue
   }
 
-    return correctValue
+  return correctValue
 }
 
 /**
@@ -60,7 +60,6 @@ module.exports = (cypressConfig, dotEnvConfig, all = false) => {
 
     // convert the env var name from snake_case to camelCase
     const camelCaseName = camelcase(cleanName)
-
 
     const parsedValue = parsedEnvVars[originalName]
     const rawValue = process.env[originalName]

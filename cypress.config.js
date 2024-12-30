@@ -9,8 +9,8 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       const updatedConfig = dotenvPlugin(config, null, true)
       // continue loading other plugins
-      
+
       return updatedConfig
-    },
-  },
+    }
+  }
 })
