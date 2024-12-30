@@ -1,6 +1,10 @@
 # Cypress dotenv
 
-Cypress plugin that enables compatability with [dotenv](https://www.npmjs.com/package/dotenv).  
+Cypress plugin that enables compatibility with [dotenv](https://www.npmjs.com/package/dotenv).  
+
+> [!NOTE]
+> If you need support for Cypress v9 or below, please use [v2.x of this plugin](https://github.com/morficus/cypress-dotenv/tree/v2.0.2)
+
 
 [![Build Status](https://travis-ci.org/morficus/cypress-dotenv.svg?branch=master)](https://travis-ci.org/morficus/cypress-dotenv)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0d189dae8e924ada81ad/maintainability)](https://codeclimate.com/github/morficus/cypress-dotenv/maintainability)
@@ -35,41 +39,33 @@ yarn add --dev dotenv cypress-dotenv
 
 ## Configure
 
-Cypress (< 10.0.0)
+Version 3.x of this plugin only supports Cypress v10+. For instructions on how to set up this plugin with older versions of Cypress, please refer to the [v2.x README](https://github.com/morficus/cypress-dotenv/tree/v2.0.2?tab=readme-ov-file#configure)
 
-Since this is a plugin, you will need to modify your file `cypress/plugins/index.js` to look something like this:
 
-```javascript
-const dotenvPlugin = require('cypress-dotenv');
-module.exports = (on, config) => {
-  config = dotenvPlugin(config)
-  return config
-}
-```
+Since this is a plugin, you will need to modify your `cypress.config.js` to look something like this
 
-Cypress (>= 10.0.0)
-
-According to [Migration Guide](https://docs.cypress.io/guides/references/migration-guide#Plugins-File-Removed):
-The setupNodeEvents() config option is functionally equivalent to the function exported from the plugins file
-
-```javascript
+```typescript
 import { defineConfig } from 'cypress'
 import dotenvPlugin from 'cypress-dotenv'
 
 export default defineConfig({
-	e2e: {
-                ...
-		setupNodeEvents(on, config) {
-			return dotenvPlugin(config)
-		},
+ e2e: {
+	...
+	setupNodeEvents(on, config) {
+		const updatedConfig = dotenvPlugin(config, null, true)
+		// continue loading other plugins
+		return updatedConfig
+	},
 	},
 	...
 })
 ```
 
+
+
 ## Options
-This plugin takes three paramaters. The first parameter (which is mandatory) is the Cypress config object. 
+This plugin takes three parameters:
 
-The second is an optional [dotenv](https://www.npmjs.com/package/dotenv#config) config object.
-
-The third is an optional [all] boolean parameter, which is set to false by default. If set to true, it returns all available environmental variables, not limited to those prefixed with CYPRESS_.
+1. The first parameter (which is mandatory) is the Cypress config object. 
+1. The second is an optional [dotenv](https://www.npmjs.com/package/dotenv#config) config object.
+1. The third (called `all`) is an optional boolean parameter, which is set to false by default. If set to true, it returns all available environmental variables, not limited to those prefixed with CYPRESS_.
