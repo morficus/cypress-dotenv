@@ -1,0 +1,5 @@
+# Ths file defines individuals or teams that are responsible for code in a repository.
+# Code owners are automatically requested for review when someone opens a pull request that modifies code that they own.
+# Reference: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+*       @morficus

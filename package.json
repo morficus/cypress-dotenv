@@ -1,7 +1,7 @@
 {
   "name": "cypress-dotenv",
   "version": "2.0.0",
-  "description": "Cypress plugin that enables compatability with dotenv",
+  "description": "Cypress plugin that enables compatibility with dotenv",
   "main": "index.js",
   "files": [
     "index.js"
