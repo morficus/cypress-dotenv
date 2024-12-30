@@ -18,8 +18,7 @@
   "repository": "https://github.com/morficus/cypress-dotenv.git",
   "homepage": "https://github.com/morficus/cypress-dotenv",
   "engines": {
-    "node": ">=18.x",
-    "npm": ">=10.x"
+    "node": ">=10.x"
   },
   "keywords": [
     "cypress",
