@@ -29,7 +29,7 @@ describe('Cypress dotenv plugin', () => {
     expect(enhancedConfig.env).toEqual({})
   })
 
-  it('Should only add CYPRESS_ vars to the config', () => {
+  it('Should only add CYPRESS_ vars to the config by default', () => {
     const enhancedConfig = plugin(cypressConfigExample)
 
     expect(enhancedConfig.env.TEST_VAR).toBeDefined()
@@ -72,6 +72,11 @@ describe('Cypress dotenv plugin', () => {
     expect(enhancedConfig.env.I_AM_NUMBER).toEqual(100)
   })
 
+  it('Should parse things that are numbers with leading zeros, as a string', () => {
+    const enhancedConfig = plugin(cypressConfigExample)
+    expect(enhancedConfig.env.I_AM_A_NUMBER_WITH_LEADING_ZERO).toEqual('0100')
+  })
+
   it('Should parse things that are booleans, as booleans', () => {
     const enhancedConfig = plugin(cypressConfigExample)
     expect(enhancedConfig.env.I_AM_BOOLEAN).toEqual(true)
@@ -96,7 +101,8 @@ describe('Cypress dotenv plugin', () => {
       ENV: 'testing',
       I_AM_BOOLEAN: true,
       I_AM_NUMBER: 100,
-      TEST_VAR: 'hello'
+      TEST_VAR: 'hello',
+      I_AM_A_NUMBER_WITH_LEADING_ZERO: '0100'
     }
     const enhancedConfig = plugin({})
 
@@ -123,7 +129,8 @@ describe('Cypress dotenv plugin', () => {
         I_AM_BOOLEAN: true,
         I_AM_NUMBER: 100,
         NON_CYPRESS_TEST_VAR: 'goodbye',
-        TEST_VAR: 'hello'
+        TEST_VAR: 'hello',
+        I_AM_A_NUMBER_WITH_LEADING_ZERO: '0100'
       })
     })
   })
